@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDF Technical Roadmap — Dhul Hijjah 1447 · Q2 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1B6B44;
+    --green-light: #E8F5EE;
+    --green-mid: #2E8B57;
+    --gold: #B07D2A;
+    --gold-light: #FDF6E3;
+    --blue: #1A4A8A;
+    --blue-light: #EAF1FB;
+    --purple: #5B2D8E;
+    --purple-light: #F2EBF9;
+    --orange: #C4510A;
+    --orange-light: #FDF0E6;
+    --teal: #0D7377;
+    --teal-light: #E6F4F4;
+    --crimson: #9B2335;
+    --crimson-light: #FAEAEC;
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #6B6860;
+    --border: #E2DDD6;
+    --border-light: #EDE9E2;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 48px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .header-left { display: flex; align-items: center; gap: 20px; }
+
+  .logo { height: 44px; object-fit: contain; }
+
+  .divider-v { width: 1px; height: 40px; background: var(--border); }
+
+  .header-text {}
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+  .period-badge {
+    background: var(--green);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .urgent-global {
+    background: var(--gold-light);
+    border: 1px solid #E8C97A;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* ─── MAIN ─── */
+  .main { padding: 36px 48px 60px; max-width: 1280px; margin: 0 auto; }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 40px 0 20px;
+  }
+  .section-divider:first-child { margin-top: 0; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ─── GRIDS ─── */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+  .card-stripe {
+    height: 4px;
+  }
+
+  .card-inner { padding: 18px 20px; }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .urgent-chip {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #FEF3C7;
+    color: #92400E;
+    margin-left: 6px;
+    border: 1px solid #F9D87F;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+
+  .card-tagline {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .meta-chip {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .sub-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .pill-list { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pill {
+    font-size: 13px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background: var(--bg);
+    line-height: 1.5;
+  }
+
+  .bar-wrap { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-light); }
+  .bar-header { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+  .bar-track { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 2px; }
+
+  /* ─── FLOW STEPS ─── */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .flow-step {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    text-align: center;
+    min-width: 90px;
+    flex: 1;
+  }
+  .flow-step-title { font-size: 14px; font-weight: 500; color: var(--text); }
+  .flow-step-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .flow-arrow { color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+
+  /* ─── EXAMPLE CALLOUT ─── */
+  .example-callout {
+    margin: 12px 0 0;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ─── LUCYK CARD ─── */
+  .lucyk-tasks { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
+  .ltask {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+  }
+  .ltask-num { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .ltask-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .ltask-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── TIMELINE ─── */
+  .timeline-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .timeline-header { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .timeline-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; }
+  .timeline-body { padding: 20px 24px 24px; }
+
+  .tl-grid { display: grid; grid-template-columns: 120px repeat(6, minmax(0,1fr)); gap: 0; }
+
+  .tl-header-cell {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0 4px 10px;
+  }
+  .tl-header-cell:first-child { text-align: left; padding-left: 0; }
+
+  .tl-row { display: contents; }
+
+  .tl-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .tl-cell {
+    padding: 6px 4px;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tl-seg {
+    height: 10px;
+    border-radius: 3px;
+    width: 90%;
+  }
+
+  .tl-empty { width: 90%; height: 10px; }
+
+  .tl-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border-light); }
+  .tl-li { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+  .tl-swatch { width: 20px; height: 8px; border-radius: 2px; }
+
+  /* ─── SUMMARY ROW ─── */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0,1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .summary-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-chip-dot { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 2px; }
+  .summary-chip-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .summary-chip-type { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 24px 48px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-muted);
+    background: var(--surface);
+  }
+
+  /* ─── COLOR CLASSES ─── */
+  .c-green { background: var(--green); }
+  .c-gold  { background: var(--gold); }
+  .c-blue  { background: var(--blue); }
+  .c-purple { background: var(--purple); }
+  .c-orange { background: var(--orange); }
+  .c-teal  { background: var(--teal); }
+  .c-crimson { background: var(--crimson); }
+
+  .t-green  { background: var(--green-light);  color: var(--green); }
+  .t-gold   { background: var(--gold-light);   color: var(--gold); }
+  .t-blue   { background: var(--blue-light);   color: var(--blue); }
+  .t-purple { background: var(--purple-light); color: var(--purple); }
+  .t-orange { background: var(--orange-light); color: var(--orange); }
+  .t-teal   { background: var(--teal-light);   color: var(--teal); }
+  .t-crimson { background: var(--crimson-light); color: var(--crimson); }
+
+  @media (max-width: 900px) {
+    .header { padding: 20px 24px; }
+    .main { padding: 24px 24px 48px; }
+    .grid-2, .grid-4, .grid-3 { grid-template-columns: 1fr; }
+    .summary-row { grid-template-columns: repeat(2, 1fr); }
+    .lucyk-tasks { grid-template-columns: 1fr; }
+    .tl-grid { grid-template-columns: 80px repeat(6, minmax(0,1fr)); }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .card:hover { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA4NCA4NCI+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI5LjMuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDIuMS4wIEJ1aWxkIDE1MSkgIC0tPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuc3QwIHsKICAgICAgICBmaWxsOiAjMjMxZjIwOwogICAgICB9CgogICAgICAuc3QxIHsKICAgICAgICBmaWxsOiAjZmZmOwogICAgICB9CgogICAgICAuc3QyIHsKICAgICAgICBmaWxsOiAjMDA1NzdmOwogICAgICB9CgogICAgICAuc3QzIHsKICAgICAgICBmaWxsOiAjZWRjYjI1OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8cGF0aCBjbGFzcz0ic3QyIiBkPSJNNjYuNTIsMzguNzRjMCwxLjg1LS4yLDMuNjYtLjU3LDUuNC0yLjQ3LDExLjQ1LTEyLjYxLDIwLjA1LTI0Ljc4LDIwLjEzaDBjLS4wNiwwLS4xMiwwLS4xOCwwLTEyLjEyLDAtMjIuMjYtOC40NC0yNC44OC0xOS43NS0uNDMtMS44Ni0uNjYtMy44LS42Ni01Ljc5LDAtMTQuMSwxMS40My0yNS41NCwyNS41NC0yNS41NHMyNS41NCwxMS40MywyNS41NCwyNS41NCIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNC4xMyw0N2MtLjE0LS40Ni0uMTgtLjUtLjY2LS40MWwtMi4yOC40NWMtLjQ4LjA5LS40OS4xNS0uNDUuNjJsLS4xNy4wMy0uMzEtMS41OC4xNy0uMDNjLjE1LjQ2LjE3LjUuNjUuNDFsMS4xNC0uMjItLjM3LTEuODktMS4xNC4yMmMtLjQ4LjA5LS40OS4xNC0uNDUuNjJsLS4xNy4wMy0uMzEtMS41Ny4xNy0uMDNjLjE0LjQ1LjE3LjUuNjUuNGwyLjI4LS40NWMuNDgtLjA5LjUtLjE1LjQ2LS42MmwuMTctLjAzLjMxLDEuNTctLjE3LjAzYy0uMTMtLjQ1LS4xOC0uNDktLjY2LS40bC0uOS4xNy4zNywxLjg5LjktLjE3Yy40OC0uMDkuNS0uMTYuNDYtLjYybC4xNy0uMDMuMzEsMS41OC0uMTcuMDNaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTE1LjA1LDUwLjcyYy0uMTQuMDQtLjM2LjExLS44NS4yOWwtLjYyLjIyYy0uNTQuMi0xLjAxLjI5LTEuNDYuMDktLjM2LS4xNi0uNTktLjUtLjcyLS44OS0uMTItLjMzLS4xOC0uNy0uMDctMS4wMS4xMy0uNDIuNDUtLjcxLDEuMDgtLjk0bDEuNC0uNTFjLjUtLjE4LjUxLS4yNC4zOS0uNjlsLjE2LS4wNi41NCwxLjQ5LS4xNi4wNmMtLjE5LS40Mi0uMjUtLjQ1LS43NC0uMjdsLTEuMzkuNWMtLjc3LjI4LTEuMDcuOC0uODQsMS40NS4yNy43Ni44NS44NCwxLjc1LjUxbC41OC0uMjFjLjQ4LS4xOC42OC0uMjcuODMtLjMzLjI0LS4xMS4yOC0uMjcuMTYtLjY4bC4xNi0uMDYuNDgsMS4zMy0uMTYuMDZjLS4xNS0uMzQtLjI4LS40My0uNTMtLjM1WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0xNC4wMSw1NS43M2wuMTUtLjA4Yy4yNy4zOS4zMS4zOS44NC4wOWwyLjA2LTEuMTZjLTEuMTUuMTEtMi44Ny4yNi0zLjUyLjM0bC0uMDgtLjE0Yy40Mi0uNSwxLjQzLTEuNzgsMi4xNC0yLjY4LTEuOC45LTIuMTksMS4xMi0yLjMsMS4xOC0uMjguMTYtLjI2LjMxLS4xLjY5bC0uMTUuMDgtLjY5LTEuMjIuMTUtLjA4Yy4yLjI4LjMzLjM3LjYzLjI1LjIzLS4wOS40My0uMiwyLjM0LTEuMDkuMjctLjEzLjM0LS4yMy4xMy0uN2wuMTUtLjA4LjUyLjkzLTEuOSwyLjUyLDMuMTgtLjI1LjUyLjkyLS4xNS4wOGMtLjI5LS40MS0uMzctLjQzLS43My0uMjJsLTEuOTQsMS4xMmMtLjUyLjMyLS41NC4zNS0uMzMuODFsLS4xNS4wOC0uNzgtMS4zOVoiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTYuNjUsNTkuNDdsLjE0LS4xMWMuMjcuMjcuMzQuMjYuNDcuMDUuMTMtLjE5LjI4LS40Ni40OC0uNzZsLS43Ny0uOTdjLS4yNS4wOS0uNDguMTYtLjcxLjI0LS4zOC4xNC0uMzUuMjQtLjEuNjRsLS4xNC4xMS0uODUtMS4wNy4xNC0uMTFjLjI3LjI2LjM2LjMxLjg5LjE0bDMuMTUtLjk2LjE2LjE0Yy0uNTYuOTEtMS4xNiwxLjkxLTEuNzIsMi44Mi0uMjguNDctLjI5LjU0LS4wNy44OWwtLjE0LjExLS45My0xLjE3Wk0xOC42OSw1Ny4xMmMtLjUuMTYtMS4wMS4zMi0xLjQ4LjQ3bC42Ni44My44MS0xLjMxWiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMy40MSw2MS4yMmMtLjMtLjIyLS40My0uMjYtLjYzLS4wOC0uMTQuMTQtLjMxLjMtLjY4LjY5bC0xLjYxLDEuNy0uMTgtLjE3LjI4LTMuOTItLjk5LDEuMDRjLS4zNi4zOC0uNTIuNTgtLjYzLjcxLS4xOS4yMi0uMTUuMzkuMTMuN2wtLjEyLjEzLTEuMDQtLjk4LjEyLS4xM2MuMjguMjIuNDQuMjYuNjYuMDcuMTUtLjEzLjMzLS4zLjY5LS42OWwxLjAxLTEuMDdjLjEyLS4xMi4xOC0uMi4xOS0uMzcuMDItLjE4LS4wNS0uMjktLjIzLS41bC4xMi0uMTMuNjcuNjQtLjIxLDMuNzYuOTQtLjk5Yy4zNy0uMzkuNTMtLjU3LjY0LS43Mi4xNy0uMi4xNC0uMzUtLjE5LS43bC4xMi0uMTMsMS4wNS45OS0uMTIuMTNaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTI2LjEyLDYyLjg4Yy42OS40MywxLjA1Ljg1LDEuMTcsMS4zMy4xLjM5LjA2Ljg1LS4yNCwxLjMzLS4zNi41OC0uODkuODktMS40NS45NC0uNTUuMDUtMS4xLS4xNC0xLjctLjUybC0xLjItLjc1LjA5LS4xNWMuNDQuMjIuNDkuMi43NC0uMmwxLjIzLTEuOTZjLjI3LS40Mi4yMi0uNDgtLjE0LS43NmwuMDktLjE1LDEuNC44OFpNMjUuMyw2My4xbC0xLjI3LDIuMDNjLS4yMy4zNy0uMTUuNTcuMjIuOC44NS41MywxLjY2LjIzLDIuMjEtLjY1LjMzLS41My40MS0xLjA1LjItMS41MS0uMTMtLjMtLjM3LS41My0uNzEtLjc0LS4yMi0uMTQtLjM1LS4xNy0uNDItLjE3LS4wNiwwLS4xMi4wNS0uMjQuMjRoMFoiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMjkuMzQsNjguODJsLTIuNjItMS4xOC4wNy0uMTZjLjUxLjE4LjU3LjE2Ljc3LS4yOGwuOTQtMi4wOWMuMjEtLjQ3LjE2LS41My0uMjEtLjc0bC4wNy0uMTYsMS42NS43NGMuNTEuMjMuNzIuMzIuNzkuMzQtLjA1LjEzLS4yMS41NS0uMzIuODVsLS4xOC0uMDVjLjAzLS4yLjAzLS4zNi4wMi0uNS0uMDEtLjItLjExLS4yOS0uNDItLjQzbC0uNDgtLjIxYy0uMTctLjA4LS4xOS0uMDctLjI2LjA5bC0uNTMsMS4xNy41OC4yNmMuMzguMTcuNDUuMTEuNjgtLjIzbC4xNy4wOC0uNSwxLjExLS4xNy0uMDhjLjEtLjQyLjA4LS40OS0uMjktLjY2bC0uNTctLjI2LS40NywxLjA0Yy0uMTcuMzctLjA5LjQ2LjE5LjU5bC40Ny4yMWMuMzIuMTQuNC4xMi41OC4wNC4xNi0uMDcuMzctLjI0LjUyLS4zN2wuMTUuMTJjLS4wOS4xMy0uNDkuNjItLjYxLjc2WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0zNC43Niw2Ni43N2MtLjM5LS4wNy0uNS0uMDUtLjg2LjQtLjI3LjMzLTEuNTYsMS44OS0yLjA5LDIuNTZsLS4yMS0uMDZjLS4wNS0uOTEtLjE0LTIuNDktLjItMy4zNi0uMDMtLjQ2LS4xLS41NS0uNDQtLjY5bC4wNS0uMTcsMS40Ny40NS0uMDUuMTdjLS40My0uMDgtLjQ2LS4wMi0uNDUuMjEuMDIuNDYuMDgsMS43MS4xNSwyLjY2LjUzLS42NCwxLjE2LTEuNDIsMS41OS0xLjk5LjIzLS4zLjE4LS4zNy0uMjYtLjU3bC4wNS0uMTcsMS4yOS40LS4wNS4xN1oiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMzcuMDIsNzAuOGwtMi44NC0uNDguMDMtLjE3Yy41NC4wNS41OSwwLC42Ny0uNDdsLjM4LTIuMjZjLjA5LS41MS4wMy0uNTUtLjM5LS42NmwuMDMtLjE3LDEuNzguM2MuNTUuMDkuNzcuMTMuODUuMTMtLjAyLjE0LS4wNy41OC0uMS45aC0uMTljLS4wMi0uMjEtLjA2LS4zNi0uMTEtLjQ5LS4wNi0uMTktLjE4LS4yNS0uNTItLjMxbC0uNTItLjA5Yy0uMTktLjAzLS4yLS4wMi0uMjMuMTVsLS4yMSwxLjI2LjYzLjExYy40MS4wNy40Ni0uMDEuNi0uMzlsLjE5LjAzLS4yLDEuMi0uMTktLjAzYzAtLjQzLS4wNC0uNS0uNDQtLjU3bC0uNjItLjExLS4xOSwxLjEyYy0uMDcuNC4wMy40Ny4zMy41M2wuNTEuMDljLjM1LjA2LjQyLjAyLjU3LS4xMS4xNC0uMTEuMy0uMzIuNDEtLjQ4bC4xNy4wOGMtLjA2LjE1LS4zMi43Mi0uNC44OVoiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDAuNjUsNzEuMDRsLTIuNzUtLjE0di0uMTdjLjU0LS4wMi41OS0uMDUuNjEtLjU1bC4xMi0yLjNjLjAzLS41LS4wMy0uNTMtLjQ5LS42di0uMTdzMS42Mi4wOCwxLjYyLjA4di4xN2MtLjQ4LjAyLS41NC4wNS0uNTcuNTVsLS4xMiwyLjM2Yy0uMDIuMzUuMDIuNDUuMzUuNDcsMCwwLC40LjAzLjQzLjAzLjMuMDIuMzktLjAyLjU0LS4xNi4xNS0uMTQuMjktLjM3LjM5LS41OGwuMTkuMDZjLS4wNS4xOS0uMjUuNzktLjMyLjk3WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MS41MSw2OS4yMWMtLjA5LTEuMDMuNTctMi4wNywxLjgyLTIuMTcsMS4wMS0uMDgsMS45Ni42MSwyLjA2LDEuNzcuMSwxLjI1LS42OSwyLjEtMS43NywyLjE5LTEuMTMuMDktMi4wMi0uNjktMi4xMS0xLjc5aDBaTTQzLjI0LDY3LjI3Yy0uNjQuMDUtMS4xNi42NS0xLjA3LDEuNzMuMDksMS4wNy43MSwxLjgzLDEuNTMsMS43Ni42OC0uMDYsMS4xNS0uNjMsMS4wNS0xLjc0LS4xLTEuMjEtLjc3LTEuODEtMS41MS0xLjc1WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00Ny4xMSw2Ni41NGMuNDEtLjA5Ljc2LS4wOSwxLjAzLjAzLjI3LjEyLjQ5LjM1LjU3LjczLjE5LjgzLS40NSwxLjMzLTEsMS40NS0uMDYuMDEtLjEyLjAyLS4xNi4wMmgtLjRzLjE5Ljg2LjE5Ljg2Yy4xMS40OC4xNS40OC42OC40MmwuMDQuMTctMS42Mi4zNi0uMDQtLjE3Yy40Ny0uMTYuNDktLjIuMzgtLjY3bC0uNS0yLjI1Yy0uMTEtLjUtLjE4LS41MS0uNjMtLjQ1bC0uMDQtLjE3LDEuNS0uMzNaTTQ2Ljc4LDY3LjE1bC4zMSwxLjRjLjA4LjAyLjIzLjAyLjQxLS4wMi4zNi0uMDguNzgtLjM3LjYyLTEuMS0uMTQtLjYzLS41OS0uNzgtMS4wNS0uNjgtLjE2LjA0LS4yNi4wOS0uMjkuMTMtLjA0LjA1LS4wNC4xMiwwLC4yNmgwWiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01My4wOSw2OC42MWwtLjA2LS4xNmMuNDItLjIxLjQzLS4yNi4yMS0uODJsLS44NS0yLjIxYy0uMDYsMS4xNi0uMTYsMi44OC0uMTcsMy41M2wtLjE1LjA2Yy0uNDQtLjQ4LTEuNTYtMS42Ny0yLjM1LTIuNDkuNjQsMS45MS43OSwyLjMyLjg0LDIuNDQuMTIuMy4yNy4zLjY3LjE5bC4wNi4xNi0xLjMuNS0uMDYtLjE2Yy4zLS4xNS40MS0uMjcuMzQtLjU5LS4wNi0uMjQtLjEzLS40Ni0uNzUtMi40Ny0uMDktLjI5LS4xOC0uMzctLjY3LS4yM2wtLjA2LS4xNi45OS0uMzgsMi4yMiwyLjI0LjItMy4xOC45OS0uMzguMDYuMTZjLS40NC4yMy0uNDguMy0uMzIuNjlsLjgzLDIuMDdjLjI0LjU2LjI3LjU4Ljc2LjQ1bC4wNi4xNi0xLjQ5LjU4WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01Ny43OSw2Ni4xOGwtMi40OSwxLjQ0LS4wOS0uMTVjLjQ1LS4zMS40Ni0uMzcuMjItLjc5bC0xLjE1LTEuOTljLS4yNi0uNDUtLjMzLS40NC0uNzItLjI2bC0uMDktLjE1LDEuNTctLjljLjQ5LS4yOC42OC0uNC43NC0uNDQuMDcuMTIuMzIuNDkuNS43NmwtLjE1LjEyYy0uMTQtLjE1LS4yNy0uMjQtLjM5LS4zMS0uMTctLjExLS4zLS4wOC0uNi4wOWwtLjQ1LjI2Yy0uMTYuMDktLjE3LjEyLS4wOC4yN2wuNjQsMS4xMS41NS0uMzJjLjM2LS4yMS4zNS0uMy4yMS0uNjlsLjE2LS4wOS42MSwxLjA2LS4xNi4wOWMtLjI4LS4zMy0uMzUtLjM2LS43LS4xNWwtLjU1LjMxLjU3Ljk4Yy4yLjM1LjMyLjM0LjU5LjJsLjQ1LS4yNmMuMy0uMTguMzMtLjI1LjM3LS40NS4wNC0uMTcuMDItLjQ0LDAtLjYzbC4xOC0uMDVjLjA1LjE1LjIyLjc2LjI1Ljk0WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik01OS42MSw2MC4zMWMtLjI3LjI2LS4zMy4zOC0uMTcuNjEuMTEuMTYuMjUuMzUuNTguNzhsMS40MywxLjg1LS4xOS4xNS0zLjgzLS44Ny44OCwxLjE0Yy4zMi40MS40OS42MS42LjczLjE5LjIyLjM2LjIxLjcxLS4wMmwuMTEuMTQtMS4xMy44Ny0uMTEtLjE0Yy4yNi0uMjQuMzItLjQuMTctLjY0LS4xLS4xNi0uMjUtLjM3LS41Ny0uNzlsLS45LTEuMTZjLS4xLS4xMy0uMTctLjIxLS4zNC0uMjUtLjE4LS4wNS0uMywwLS41My4xNWwtLjExLS4xNC43My0uNTcsMy42OS43OC0uODQtMS4wOGMtLjMzLS40Mi0uNDktLjYxLS42MS0uNzQtLjE3LS4yLS4zMy0uMTktLjcyLjA4bC0uMTEtLjE0LDEuMTQtLjg4LjExLjE0WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02Mi41NSw1OC4zNmMtLjE4LS4xLS4zOC0uMTgtLjUtLjIxLS4xOC0uMDQtLjI0LS4wMy0uNDcuMjFsLS4zOC4zOSwyLjA0LDEuOTdjLjMzLjMyLjQxLjMzLjgyLS4wNGwuMTIuMTItMS4yMSwxLjI1LS4xMi0uMTJjLjM1LS40MS4zNC0uNDgsMC0uODFsLTIuMDQtMS45Ny0uMzUuMzZjLS4yMi4yMy0uMjYuMzMtLjIxLjUyLjAzLjEzLjExLjI4LjIxLjQ4bC0uMTMuMTNjLS4yNC0uMjgtLjQ5LS41OC0uNzEtLjgxbC4xLS4xYy4xNi4wMy4yLS4wMi4zMi0uMTNsMS42MS0xLjY3Yy4xMS0uMTIuMTMtLjE3LjExLS4zMWwuMS0uMWMuMTkuMTkuNTMuNDcuOC42OWwtLjEyLjE0WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02NC43MSw1NC42NGMtLjIyLS4wMS0uMy4wMy0uNDguM2wtLjM0LjQ5Yy0uMS4xNC0uMS4xNy4wNS4yN2wxLjEuNzYuNC0uNThjLjIzLS4zNC4xOS0uNC0uMS0uNzFsLjEtLjE1LDEuMDIuNy0uMTEuMTZjLS4zOC0uMTctLjQ4LS4xOC0uNzEuMTVsLS40LjU4Ljg0LjU4Yy40Mi4yOS40OC4yNi44MS0uMTVsLjE0LjEtLjk1LDEuMzgtLjE0LS4xYy4yNC0uNDEuMjMtLjQ3LS4xOS0uNzZsLTEuODgtMS4yOWMtLjQyLS4yOS0uNDgtLjI2LS43OC4xbC0uMTQtLjEsMS4wNi0xLjU1Yy4zLS40My40MS0uNjEuNDYtLjcuMTYuMS41My4zMi43OC40N2wtLjA5LjE3Yy0uMTctLjA1LS4zMy0uMS0uNDgtLjFaIi8+CiAgPHBhdGggY2xhc3M9InN0MCIgZD0iTTY2LjgxLDUwLjk0Yy4xMi4wNy4zMy4xOS43OS40MmwuNTguM2MuNTIuMjYuOS41NCwxLjA2LDEsLjEzLjM3LjAzLjc3LS4xNSwxLjEzLS4xNi4zMS0uMzkuNi0uNjkuNzQtLjQuMTktLjgyLjE2LTEuNDMtLjE1bC0xLjMzLS42N2MtLjQ3LS4yNC0uNTItLjIxLS43Ny4xOGwtLjE1LS4wOC43Mi0xLjQxLjE1LjA4Yy0uMTguNDMtLjE2LjQ5LjMxLjczbDEuMzIuNjdjLjczLjM3LDEuMzIuMjMsMS42My0uMzguMzYtLjcyLjAzLTEuMTktLjgyLTEuNjJsLS41NS0uMjhjLS40Ni0uMjMtLjY2LS4zMi0uODEtLjM4LS4yNC0uMS0uMzktLjAyLS42LjM1bC0uMTUtLjA4LjY0LTEuMjYuMTUuMDhjLS4xNC4zNC0uMTIuNS4xMS42M1oiLz4KICA8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNjguMDEsNDYuMzJjLS4wOC4zNy0uMDYuNS4xOS42LjE4LjA3LjQuMTUuOTEuMzJsMi4yMi43My0uMDguMjMtMy42NiwxLjQyLDEuMzYuNDVjLjUuMTYuNzUuMjMuOTEuMjcuMjguMDguNDItLjAzLjU4LS40MmwuMTYuMDUtLjQ1LDEuMzUtLjE2LS4wNWMuMDgtLjM1LjA0LS41MS0uMjItLjYyLS4xOC0uMDgtLjQxLS4xNy0uOTEtLjMzbC0xLjQtLjQ2Yy0uMTYtLjA1LS4yNi0uMDctLjQyLS4wMS0uMTcuMDYtLjI0LjE3LS4zNi40MmwtLjE2LS4wNS4yOS0uODgsMy40OS0xLjQxLTEuMy0uNDNjLS41MS0uMTctLjc0LS4yMy0uOTItLjI3LS4yNS0uMDYtLjM4LjAzLS41NS40N2wtLjE2LS4wNS40NS0xLjM3LjE2LjA1WiIvPgogIDxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik02OC4xNiw0NC4zOWMuMTMtLjguMzgtMS4yOS43OC0xLjYuMzItLjI0Ljc2LS4zOCwxLjMyLS4yOS42Ny4xMSwxLjE3LjQ3LDEuNDMuOTcuMjYuNDkuMywxLjA3LjE4LDEuNzdsLS4yMywxLjM5LS4xNy0uMDNjLjA0LS40OSwwLS41My0uNDgtLjYxbC0yLjI4LS4zN2MtLjQ5LS4wOC0uNTMtLjAyLS42NS40MmwtLjE3LS4wMy4yNy0xLjYzWk03MS4wNCw0NS40NGMuNDMuMDcuNTgtLjA4LjY1LS41MS4xNi0uOTktLjQzLTEuNjItMS40Ni0xLjc5LS42MS0uMS0xLjEzLjAyLTEuNDcuNC0uMjIuMjMtLjM0LjU1LS40MS45NC0uMDQuMjUtLjAzLjM5LDAsLjQ1LjAzLjA2LjEuMDkuMzEuMTNsMi4zNi4zOFoiLz4KICA8cGF0aCBjbGFzcz0ic3QyIiBkPSJNNzAuNjksMzguNTVoLS45NWMwLTE1LjcyLTEyLjc5LTI4LjUxLTI4LjUxLTI4LjUxcy0yOC41MSwxMi43OS0yOC41MSwyOC41MWgtLjk1YzAtMTYuMjUsMTMuMjItMjkuNDcsMjkuNDctMjkuNDdzMjkuNDcsMTMuMjIsMjkuNDcsMjkuNDciLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNTIuNjgsNDIuOTdjLjQ1LDAsLjg2LS4xOCwxLjE2LS40OC4zLS4zLjQ4LS43MS40OC0xLjE2LDAtLjkxLS43My0xLjY0LTEuNjQtMS42NGgtOS4zNXY5LjI2YzAsMS4xNy45NSwyLjExLDIuMTIsMi4xMWguMzNjMS4xNywwLDIuMTItLjk0LDIuMTItMi4xMXYtMi4yMmg0Ljc5Yy40NSwwLC44Ni0uMTgsMS4xNi0uNDguMy0uMy40OC0uNzEuNDgtMS4xNiwwLS45MS0uNzMtMS42NC0xLjY0LTEuNjRoLTQuNjl2LS40OGg0LjY5WiIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00Ni4yOCw1NS4xOGMtLjIyLS4xNi0uNDYtLjE2LS42Ny4wMS0uMjIuMTYtLjQ1LjIzLS43Mi4xNC0uMjgtLjA5LS40NS0uMzEtLjYxLS41NC0uMDItLjAzLS4wMi0uMSwwLS4xMi4wMy0uMDMuMDktLjA1LjEzLS4wNC4xOC4wNC4zMi0uMDQuNDItLjE2LjI0LS4yNy4yNC0uNjIuMDUtLjkxLS4xLS4xNi0uMjQtLjMtLjQ4LS4yOC4yLjE2LjI1LjM1LjIxLjU3LS4wNC4xOC0uMTQuMy0uMy4zOC0uMTYuMDgtLjMyLjAzLS40NC0uMTItLjI1LS4zLS41NC0uNTctLjktLjczLS4yNC0uMS0uMzEtLjE0LS4zMS0uMjcsMC0uMDUsMC0yLjMzLDAtNS45NXYtNC4zMWwtLjA3LS4wMnYtMTIuNzljMC0uNTgtLjI0LTEuMTEtLjYyLTEuNS0uMTktLjE5LS40MS0uMzQtLjY2LS40NS0uMDMtLjkyLjUyLTIuMDksMS44OC0yLjMuMjMtLjAzLjQ2LS4wOC43LS4xMS41OC0uMDcsMS4wNy0uMywxLjQ4LS43NC40MS0uNDQuOTEtLjc0LDEuNTEtLjg4LS42Mi0uMDMtMS4xNi4xNi0xLjYyLjU3LS4yMi4yLS40NC4zOS0uNy41NC0uMzguMjEtLjc5LjMxLTEuMzEuMTUuNzctLjY2LDEuNjYtMS4xLDIuMTUtMi4wMS0uMi4xOC0uMzUuMzYtLjUzLjQ3LS43OS41LTEuNTgsMS0yLjQsMS40Ny0uMjIuMTMtLjUyLjE2LS43OC4xNi0uNDQsMC0uNjYtLjI5LS42Mi0uNzIuMDQtLjQyLjI0LS43Ni41Ny0xLjAxLjU1LS40MSwxLjE1LS43MiwxLjgzLS44Ni42My0uMTMsMS4xMi0uNDYsMS40Ni0xLjAxLjQyLS43Ljg2LTEuMzYsMS43NS0xLjU0LS4zNS4wNS0uNzMuMS0uOTguMzEtLjM3LjI5LS42NC43LS45NywxLjA0LS4xMy4xNC0uMzIuMjMtLjQ4LjM0LS4wOS0uMTktLjIyLS4zNy0uMjctLjU2LS4wNC0uMTQuMDEtLjMuMDMtLjQ1LjAzLS4yNi4wNi0uNTMuMDktLjc5LS4yOC41Mi0uMzYsMS4wOS0uMzQsMS42NiwwLC4zNy0uMTcuNi0uNTEuNzEtLjUuMTctMSwuMzQtMS41LjUxLS4yMy4wOC0uMzUsMC0uMzEtLjI0LjIxLTEuMjkuNTQtMi41LDEuODMtMy4xOS41NC0uMjkuOTItLjc5LDEuMjktMS4zOS0uNDkuNDItLjkuOC0xLjM0LDEuMTMtLjE4LjE0LS40NC4xOS0uNjYuMjgtLjAyLS4yMy0uMDYtLjQ3LS4wNC0uNy4wMi0uMzMuMDctLjY2LjExLTEtLjE1LjMyLS4yLjY2LS4zMS45OC0uMjQuNzEtLjUsMS40MS0uNzksMi4xLS4wNi4xNS0uMjkuMy0uNDUuMzEtLjEsMC0uMjUtLjI1LS4zMS0uNDEtLjI4LS44My0uNDMtMS42Ny0uNC0yLjU2LS4wMy4xMy0uMDcuMjYtLjEuMzktLjE3LjgyLS4wNCwxLjYyLjI2LDIuMzguNDcsMS4yLjIxLDIuMzMtLjMsMy40My0uMDcuMTUtLjIyLjI1LS4zNC4zOC0uMTEtLjEzLS4yNy0uMjQtLjMyLS4zOC0uMjQtLjcyLS40OS0xLjQ1LS42Ny0yLjE4LS4wOS0uMzgtLjA4LS43OS0uMDgtMS4xOSwwLS43NS4wNC0xLjUuMDUtMi4yNSwwLS4yLS4wNi0uNDEtLjA5LS42MS0uMDYuMjEtLjA2LjQxLS4wNi42MSwwLC41LjAxLDEuMDEtLjA1LDEuNTEtLjAzLjI0LS4yMy40NS0uMzUuNjgtLjIxLS4xMi0uNDktLjItLjYzLS4zOC0uMzktLjUtLjczLTEuMDUtMS4wOC0xLjU1LDAsLjAzLS4wMS4xMS4wMi4xOC4yNC41Mi40NywxLjA0Ljc2LDEuNTQuMy41My43My45OS45NiwxLjU1LjI4LjcuNDQsMS40NS42LDIuMTkuMDcuMzItLjAyLjY3LS4zNS44Ni0uMzIuMTgtLjYxLDAtLjg0LS4xOS0uODItLjctMS4zOS0xLjU1LTEuNDktMi42NiwwLS4wNSwwLS4wOSwwLS4xNCwwLS4wMy0uMDMtLjA2LS4wNi0uMTMtLjE1Ljg5LjE1LDEuNjEuNTksMi4zLjEuMTYuMTYuNTMuMDguNTktLjE3LjEyLS40Ny4xOC0uNjYuMTItLjM3LS4xMy0uNzItLjM0LTEuMDYtLjU1LS4zMS0uMTktLjYtLjQyLS44OS0uNjMuNi44OCwxLjQzLDEuMzksMi40NSwxLjY2LjU1LjE0LDEuMS4zMywxLjY0LjUxLjcuMjQsMS4wMy43OCwxLjEzLDEuNDguMDEuMS4wMy4yLjA0LjMtLjY5LjM1LTEuMTcsMS4wNi0xLjE3LDEuODl2OC4wOGgtMi44MXYtOC4wOGMwLS41OC0uMjQtMS4xMS0uNjItMS41LS4zOC0uMzgtLjkxLS42Mi0xLjUtLjYyLTEuMTcsMC0yLjEyLjk1LTIuMTIsMi4xMnYxOS4yN2MwLC41OC4yNCwxLjExLjYyLDEuNS4zOC4zOC45MS42MiwxLjUuNjIsMS4xNywwLDIuMTItLjk1LDIuMTItMi4xMnYtNy41OWgyLjgxYy0uMDIsMS44MS0uMTIsNC41Ny0uMTQsNi0uMDUsMy40NS4wNSw1LjYxLDAsNS42NS0uMzEuMTYtLjYxLjM1LS45LjU0LS4xNy4xMS0uMzcuMDktLjUsMC0uMTctLjEyLS4yMS0uMzItLjItLjQ4LDAtLjE3LjA5LS4yOS4yLS40My0uMDguMDItLjE3LjA0LS4yNC4wOC0uMi4xMi0uMjguMzItLjMzLjU0LS4wOC4zNC4yLjgzLjU5Ljc1LjA0LDAsLjExLjAyLjEzLjA2LjAyLjAyLDAsLjEtLjAyLjEzLS4xMi4xMy0uMjIuMjgtLjM2LjM4LS4zMi4yMi0uNjIuMjUtLjk4LS4wNS0uMDgtLjA3LS4yNC0uMTEtLjM1LS4xLS40NC4wNi0uNjYuNTEtLjYyLjg4LjE1LS4yNi4zNS0uNDQuNjUtLjQ4LjE5LS4wMi4zNi0uMDIuNS4xNi4xMy4xNy4zMi4yNy41NS4yMy4yNC0uMDQuNDMtLjE5LjU2LS40MS4yLS4zNS40NC0uNjUuNzUtLjkuMTItLjEuMjgtLjE2LjQzLS4yLDEuMy0uMzQsMS43OC0uMjcsMS41NywwLS4yMy4yOS0uNDguNTctLjc3LjgtLjMzLjI3LS42OS40OC0xLjA4LjY0LS4yNy4xMS0uNTEuMjYtLjY2LjUxLS4xMi4yLS4yMS40MS0uMy42My0uMTIuMy0uNDcuNDgtLjc3LjM3LS4xNC0uMDUtLjI2LS4xNS0uMzgtLjIxLjA2LjM2LjQ3LjY5LjkxLjUzLjMxLS4xMS40Ny0uMzUuNTYtLjY0LjE1LS40NC41My0uNzQuOTEtLjc0LjE3LDAsLjI1LjA4LjE2LjI2LS4yMy40NC0uMzIuOTMtLjM0LDEuNDItLjAxLjI1LS4xNC40NC0uMzUuNTgtLjE5LjEyLS4zOS4xMS0uNjIuMDQuMDMuMDQuMDUuMDYuMDYuMDguMTguMjYuNDcuMzIuNzEuMTIuMDgtLjA3LjEyLS4xOS4xOC0uMjguMDMtLjA0LjA2LS4wOS4xMS0uMTIuMDIsMCwuMDkuMDIuMTEuMDUuMTYuMjMuMzguMzEuNjQuMjkuMTUtLjAxLjM1LS4xNy4zNi0uMjgtLjEyLjAxLS4yNC4wNS0uMzUuMDQtLjItLjAyLS4zNi0uMTEtLjUtLjI0LS4wNy0uMDctLjE3LS4xOC0uMTYtLjI2LjAxLS4yLjA4LS4zOS4xNC0uNTcuMTgtLjYuNTMtMS4xMy44MS0xLjY4LjE1LS4yOS4zOS0uNS43MS0uNjEuMTgtLjA2LjM2LS4xMi41NC0uMTcuMDgtLjAzLjE0LDAsLjE1LjA4LjAzLjE1LjA1LjMuMDUuNDYsMCwuMiwwLC40LS4wMi42LS4wNC4yNC0uMDguNDgtLjE3LjcxLS4xLjI0LS4xNi40OS0uMTQuNzUuMDIuMjcuMDUuNTMuMi43Ni4xLjE1LjEyLjMzLjA2LjUxLS4wOC4yOC0uMjkuNDItLjU3LjQ3LjIuMjEuNTguMjEuNzQtLjA3LDAtLjAyLjAzLS4wNC4wNC0uMDQuMDMtLjAyLjA4LS4wNS4xMS0uMDQuMDQuMDEuMDcuMDYuMDcuMS4wMS4yMy4wMy40Ni4wMy42OSwwLC4yLS4wNC4zOC0uMTMuNTYtLjExLjIyLS4wNy41LjA1LjcuMDEtLjAyLjAyLS4wNC4wMy0uMDYuMDUtLjE1LjA3LS4zMS4xNS0uNDMuMjItLjM0LjI2LS43Mi4zLTEuMS4wMy0uMjUtLjA0LS40OC0uMTQtLjcxLS4wMi0uMDQtLjAyLS4xMiwwLS4xMy4wMy0uMDMuMDktLjAyLjE0LS4wMi4wNiwwLC4xMi4wNC4xNy4wMy40MS0uMDUuNTQtLjUzLjM5LS43OC0uMDcuMDgtLjEyLjE5LS4yLjI2LS4yMS4xOS0uNTYuMTQtLjY4LS4xMi0uMTItLjI3LS4xMy0uNTUtLjA4LS44Mi4wMy0uMTYuMTItLjMuMTgtLjQ1LjE2LS40My4yNi0uODcuMjYtMS4zMiwwLS4wNS4wNC0uMTIuMDktLjE0LjAzLS4wMS4wOS4wNC4xMy4wOC4xMi4xLjIxLjIzLjM0LjI5LjI0LjEuNC4yNS41MS40OC4wNy4xMy4xLjI3LjE3LjM5LjI4LjQzLjQ4LjkuNiwxLjM5LjAyLjEuMDYuMjEuMDQuMy0uMDUuMjEtLjEzLjQyLS4yOS41OC0uMTkuMTktLjQyLjI5LS42OS4yNy4xMy4zMi40Ni4zNS42OS4xNi4xNi0uMTQuMjItLjMyLjI3LS41MS4wMS0uMDUuMDUtLjEuMDgtLjE1LjA0LjA0LjExLjA3LjE0LjEyLjA4LjE2LjE5LjI3LjM4LjI1LjE4LDAsLjMtLjEzLjM5LS4zLS4yNy4wNi0uNDkuMDItLjY2LS4xOS0uMTMtLjE2LS4xMi0uMzYtLjE2LS41NS0uMDMtLjItLjA0LS40Mi0uMTEtLjYyLS4wNi0uMjItLjE2LS40My0uMjQtLjY1LS4wMS0uMDQsMC0uMTIuMDQtLjE0LjA1LS4wMy4xMy0uMDQuMTktLjAzLjQzLjA1LjcxLjI5Ljg1LjY5LjA1LjEzLjEuMjYuMTcuMzcuMjIuMzQuNjUuNDYuOTcuMjguMjEtLjEyLjMtLjMuMzUtLjUxLS4xNi4xOS0uMzYuMy0uNjEuMjgtLjI5LS4wMy0uNTEtLjI3LS42LS41NS0uMDktLjMyLS4yOC0uNi0uNTYtLjc5LS4xNi0uMTEtLjM0LS4xOC0uNTEtLjI2LS42OC0uMzItMS4yMy0uNzktMS42OS0xLjM4LS4wOC0uMDktLjA1LS4xNy4wNy0uMi4zMy0uMS42Ny0uMTEuOTktLjA0LjYuMTIsMS4wNy40NywxLjQzLjk1LjE1LjIuMjguNC40My41OS4yMi4yNy42Ny4zMS45MywwLC4wNC0uMDUuMDgtLjEyLjE1LS4xMy4yMy0uMDYuNDctLjA4LjY3LjA4LjEzLjA5LjI0LjIyLjM2LjMyLDAtLjI4LS4wOS0uNTUtLjM0LS43MyIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zMy41OSwyMi4wMmMtLjA1LjY5LjIsMS4yNi42MywxLjc3LjIzLjI3LjQ5LjUyLjguODUuMDktLjYuMjEtMS4xLjI0LTEuNjEuMDgtMS4xNC0uNzUtMi4wOS0xLjk1LTIuMjIuMzkuMzYuMzEuNzkuMjgsMS4yMSIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00NS41MSwyMS4yNGMxLC45MywyLjk0LjY4LDMuMzgtLjM4LS40NS0uMDgtLjktLjE3LTEuMzYtLjI1LS43Ny0uMTQtMS40Ni0uMDMtMi4wMi42MyIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00MS4zLDI1YzEuNC4wOSwyLjM4LS42LDIuNDQtMS43OC0xLjU1LjItMi4zOC44MS0yLjQ0LDEuNzgiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDcuMTcsMjQuODNjLS40Ni0uMTktLjkzLS4xNi0xLjM3LDAsLjM0LjMuNjYuNTguOTguODYuODEuNzMsMi4wMS4zNSwyLjI5LS43NS0uNjcuMjktMS4yOS4xNS0xLjkxLS4xMSIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00Mi43MSwxOS40MmMxLjM2LS40LDEuODktMS45MywxLjExLTMuMDQtLjEyLjI1LS4yMi40OS0uMzUuNzMtLjE5LjM0LS40Mi42NS0uNTksMS0uMi40MS0uMjkuODUtLjE2LDEuMzIiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDcuMDMsMjMuOTZjLjE3LjAyLjM1LjAxLjUzLDAsLjc4LS4wMywxLjE2LS40MSwxLjIyLTEuMTQtLjM5LjA5LS43Ny4xOS0xLjE1LjI1LS4yNS4wNC0uNTIuMDEtLjc3LjAzLS43My4wNi0xLjMyLjU3LTEuNDYsMS4zLjUtLjM5LDEuMDUtLjUsMS42My0uNDUiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzYuNTYsMTguNjVjLjU0LS43NC4xMy0xLjgxLS45NC0yLjUyLS42LDEuMzYtLjMsMi4xNS45NCwyLjUyIi8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQxLjYyLDIyLjg3YzEuNi0uMzUsMS45My0xLjM0LDEuNjItMi40OS0uNzguNy0xLjcyLDEuMjYtMS42MiwyLjQ5Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM0LjEsMjYuODVjLS4xNi40NC0uMzguOC0uOTUuOC44NS42MiwxLjY0LjM1LDEuODctLjYxLjAyLS4wNy4wNC0uMTQuMDUtLjIxLjA3LS40My4yNC0uODEuNzEtMS4wOC0uOTQtLjA3LTEuMzUuMi0xLjY4LDEuMDkiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzUuNjMsMjAuMTJjLS4yMS0uMTQtLjQtLjMxLS42MS0uNDgtLjI0LDEuMDQuMjMsMi4yNSwxLjA1LDIuNi4wNS0uMjUuMTEtLjUuMTYtLjc2LjEyLS42Ni0uMDQtLjk5LS42LTEuMzciLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzcuMDYsMjIuMjhjLS4zNS40Mi0uNDMuODktLjMsMS40MS4wNS4yMi4xNS4yNS4zNS4xOSwxLjA1LS4zMywxLjI4LTEuNDMuNDctMi4yNC0uMTguMjMtLjM1LjQ0LS41Mi42NCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zNy4yMiwyOC40Yy40My0uNi4zNi0xLjQyLS4xNi0yLjA5LS4yNi0uMzMtLjU4LS4yOS0uNzMuMS0uMDUuMTMtLjA4LjI5LS4wNS40MS4wOC4zLjE5LjYuMzIuODkuMTQuMzIuMzYuNjEuMjYsMS4wMy4xMi0uMTEuMjctLjIxLjM3LS4zNCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zMi41MSwyNC42MWMuNjEuMjYsMS4yMy4yMiwxLjg5LjA1LS40My0uNTgtMS4wMS0uODItMS42NS0uOTktLjI4LS4wOC0uNTUtLjIzLS44My0uMzUtLjA5LjYzLjA5LDEuMDYuNTksMS4yOCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00NS45LDE1LjkyYy0xLjE3LjItMS42LjkyLTEuMTUsMS45NSwxLjI4LS4yOCwxLjE5LS43NSwxLjE1LTEuOTUiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDIuMzIsMThjLjcxLS45Ni4zNS0xLjc0LS40OC0yLjM5LS41Ni44NC0uMzUsMS44Ny40OCwyLjM5Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM5LjgxLDIxLjg0Yy0uMjMuOTYtLjY4LDEuOTEuMDgsMi44NS43Ni0xLjA1Ljc0LTEuODktLjA4LTIuODUiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzguNTcsMTguOTJjLS4wNC0uNi0uNDQtLjkxLS44Ni0xLjEzLS4wNi44NS0uMTMsMS43MS0uMiwyLjU2LjA1LjAyLjExLjAzLjE2LjA1LjQ3LS4zOC45My0uNzguODktMS40OCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zMy4xOSwyNS4zMWMtLjIxLjE3LS40NS4yOS0uNjguNDMuNDIuNDgsMS43Mi40NCwyLjYyLS4zOS0uNjgtLjQ3LTEuNDItLjQ3LTEuOTQtLjA0Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM4LjY1LDE3LjY3Yy41OC0xLjEyLjAzLTIuMTQtMS4wOS0yLjE1LjA4LjMuMjIuNjEuMjMuOTIuMDMuNi4zNy45Ni44NSwxLjIzIi8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQwLjQsMTguMDJjLjgyLS43MS45OS0xLjU4LS4zNS0yLjI0LS4wMy4zMS0uMDYuNjQtLjEuOTYtLjA2LjQ5LDAsLjkzLjQ1LDEuMjgiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDQuOTUsMjUuNTZjLjQ0LjEzLjcyLjM0Ljg0LjcyLjA2LjE5LjExLjM5LjE3LjU3LjE2LjQ3LjQ1LjY4Ljg5LjctLjA0LS4yNC0uMTMtLjQ5LS4xMS0uNzMuMDYtMS4wNy0uNzYtMS41My0xLjc5LTEuMjYiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDMuODEsMjUuODVjLjAyLDEsMS4xNCwxLjc3LDIuMDcsMS40My0uNzQtLjQxLS45Ny0xLjUxLTIuMDctMS40MyIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00My43MiwyNy4xMmMtLjEtLjE2LS4xNS0uMzQtLjI1LS41LS4xOS0uMjktLjQ3LS40LS44LS40MS4wNC4yMy4wOS40MS4xLjU5LjA0LjU2LjI2Ljk0LjYsMS4xM2gtLjA0djExLjM3aDUuNzhjMy4xNCwwLDUuNjgtMi41NSw1LjY4LTUuNjgsMC0xLjU3LS42NC0yLjk5LTEuNjctNC4wMi0uNzMtLjczLTEuNjYtMS4yNy0yLjctMS41MSwwLDAsMCwwLS4wMSwwLS40Mi0uMS0uODUtLjE1LTEuMy0uMTVoLTQuODhjLS4xNi0uMjYtLjM0LS41My0uNTEtLjgxTTQ3LjQ1LDMyLjE1aDEuNTZjLjc3LDAsMS4zOS42MiwxLjM5LDEuMzksMCwuMzgtLjE2LjczLS40MS45OC0uMjUuMjUtLjYuNDEtLjk4LjQxaC0xLjU2di0yLjc3WiIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00MC42MSwxOS42NWMuNjktLjExLjk5LS40NSwxLjAxLTEuMTIsMC0uMy4wNC0uNi4wNi0uOS0uODEuMTYtMS4xOCwxLjAyLTEuMDYsMi4wMiIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zNi4yNSwyNS4yNWMuMzQtLjk5LS4xNS0xLjc3LS41Ni0yLjYtLjQ3Ljk0LS4yMiwyLjEuNTYsMi42Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQ3LjM5LDIyLjc4Yy0xLjIxLTEuMDgtMS42LTEuMTctMi40Ni0uNTcuMzkuMTkuNzguMzksMS4xNy41Ni40Mi4xOC44NS4xOSwxLjI5LDAiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDUuOSwyMC4yOWMuODgtLjM3LDEuOS0uMDEsMi43NC0uNjEtLjg4LS41OS0yLjI2LS40Mi0yLjc0LjYxIi8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM5LjEzLDE5Ljk2Yy44NS0uNDYsMS4wNi0xLjM5LjU0LTIuMjQtLjUzLjM2LS43OCwxLjM3LS41NCwyLjI0Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM4LjI0LDI2LjU3Yy0uNTguNDEtLjYsMS41OC0uMDMsMi4xNi42MS0uNTcuNjMtMS43NS4wMy0yLjE2Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM2Ljg3LDIwLjQ1Yy0uODEtMS41NC0xLjI5LTEuOTYtMi4wMS0xLjg5LjI2LjM3LjU3Ljc2Ljg0LDEuMTcuMjguNDMuNjQuNjcsMS4xOC43MiIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00NS4yOSwxOC40N2MuNC0uMDMuOC0uMDMsMS4xOS0uMTIuNS0uMTEuOC0uNTEuNzktLjgzLS4zNS4wOC0uNy4xOS0xLjA2LjIzLS41OC4wNy0xLjEuMjMtMS42LjcyLjMsMCwuNDkuMDEuNjksMCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00MS45NiwyOC4zMmMuODYtLjYuOTYtMS4xNi4zNi0xLjk5LS42NS41Ny0uODIsMS4yMi0uMzYsMS45OSIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00Ny4wMywxOS4xOGMtLjQyLS4xMy0uODgtLjI3LTEuMzQtLjQyLS40MS0uMTQtLjgyLS4xOC0xLjI0LDAsMS4xNC45LDEuODgsMSwyLjU3LjQyIi8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM0Ljk2LDIxLjMyYy0uMjItLjgyLS4yOC0xLjcxLTEuMTgtMi4xOS0uMTkuOTMuNDYsMiwxLjE4LDIuMTkiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzcuNywyNS4wM2MuNC0uMTEuNzgtLjI2Ljk0LS42OS4xNS0uNC0uMDEtLjc2LS4yLTEuMDgtLjE5LjIyLS4zNS40Mi0uNTMuNTktLjM5LjM3LS40NS42NS0uMjEsMS4xOCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zMy44OSwyMy43N3MuMDYtLjA2LjA5LS4wOWMtLjQxLS42Mi0uODItMS4yMy0xLjI2LTEuODgtLjIzLjQ1LS4yNy45LDAsMS4zMi4yOC40MS42OS41OSwxLjE2LjY1Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQ0LjcyLDE5LjY0Yy0uNDkuNjQtLjU4LDEuMzUtLjQ1LDIuMTIuNjQtLjQsMS4wOC0xLjMxLjQ1LTIuMTIiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzkuNTYsMjAuMTZjLS42OS41My0uNiwxLjI1LS42LDIsLjU2LS4yNi43Ni0uNTUuNzItMS4wMi0uMDMtLjMyLS4wOC0uNjMtLjEyLS45OCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00My44MSwyNC40Yy45MS0uNTksMS4xOC0xLjEyLjkxLTEuNzgtLjYuMy0uOTksMS4wOC0uOTEsMS43OCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zNi43MywyMC44NWMtLjEuNTEtLjE3LDEuMDItLjI2LDEuNTcuODItLjM2Ljk5LTEuMDMuNDctMS44NC0uMDguMS0uMTkuMTgtLjIxLjI3Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTQ5LjAzLDI0LjIyaC0yLjExYy41NC42OCwxLjYyLjY0LDIuMTEsMCIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zNS41NiwyNy41NWMuNjItLjM5LjQ3LTEuMDQuNi0xLjYxLS42NS4wNi0uOTcuODctLjYsMS42MSIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00MC45OSwyMS4xNGMuNzEtLjQ3Ljg2LS45MS41NC0xLjUzLS41Mi4yNi0uNzMuODItLjU0LDEuNTMiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNMzkuNDcsMTYuMzRjLS4zLjQ5LS42Ny45NC0uNTcsMS41OS42OS0uMjMuOTQtMS4wMy41Ny0xLjU5Ii8+CiAgPHBhdGggY2xhc3M9InN0MyIgZD0iTTM5LjkyLDIwLjM3Yy0uMTguODMuMTEsMS41Ljc0LDEuNzUtLjExLS42NC0uMjItMS4yNy0uNzQtMS43NSIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik0zNy4yMSwxNy44NGMtLjI2LjQtLjMzLDEuMTktLjEzLDEuNy40NS0uNDMuNS0xLjE3LjEzLTEuNyIvPgogIDxwYXRoIGNsYXNzPSJzdDMiIGQ9Ik00Mi44OSwyMC4wN2MuNjktLjAxLDEuMzEtLjIxLDEuODgtLjc4LS43OS4wNC0xLjM0LjM5LTEuODguNzgiLz4KICA8cGF0aCBjbGFzcz0ic3QzIiBkPSJNNDUuMTYsMjQuMzNjLS42My4xNy0xLjA5LjQ2LTEuNTYuOTMuNy0uMDcsMS4yMi0uMjcsMS41Ni0uOTMiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNTkuMzYsNDMuNzlzLS4wMi4xLS4wMy4xNGMtLjA0LjE3LS4wNy4zNC0uMS41My0uMDMuMjYtLjA3LjUyLS4xMS43OC0uMS42Ny0uMTksMS4zNi0uMjEsMi4wNS0uMDQsMS41My0uNTgsMi45NS0xLjY0LDQuMzYtLjE0LjE5LS41NC43Mi0uNi44LjA4LS41Ni4xNS0xLjExLjIzLTEuNjcuMTItLjg0LjIzLTEuNjguMzQtMi41Mi4wNC0uMzIuMDgtLjY1LjEyLS45Ny4wNy0uNTguMTQtMS4xOS4yNC0xLjc3bC4wMi0uMTFjLjEyLS43Mi4yNC0xLjM5LjY4LTEuOTMuMTctLjIxLjMzLS4zMS40Ny0uMzEuMDcsMCwuMTUuMDIuMjQuMDcuMTQuMDguMy4yMS4zMy41NSIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik01OS4zNiw0My43OXMtLjAyLjEtLjAzLjE0Yy0uMDQuMTctLjA3LjM0LS4xLjUzLS4wMy4yNi0uMDcuNTItLjExLjc4LS4xLjY3LS4xOSwxLjM2LS4yMSwyLjA1LS4wNCwxLjUzLS41OCwyLjk1LTEuNjQsNC4zNi0uMTQuMTktLjU0LjcyLS42LjguMDgtLjU2LjE1LTEuMTEuMjMtMS42Ny4xMi0uODQuMjMtMS42OC4zNC0yLjUyLjA0LS4zMi4wOC0uNjUuMTItLjk3LjA3LS41OC4xNC0xLjE5LjI0LTEuNzdsLjAyLS4xMWMuMTItLjcyLjI0LTEuMzkuNjgtMS45My4xNy0uMjEuMzMtLjMxLjQ3LS4zMS4wNywwLC4xNS4wMi4yNC4wNy4xNC4wOC4zLjIxLjMzLjU1Ii8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTYyLjE4LDQyLjA2Yy0uMjQsMS4yMS0uMzksMi41Mi0uNDgsNC4xNC0uMDUuODYtLjM1LDEuNzEtLjksMi41LS4zOC41Ni0uOCwxLjExLTEuMjEsMS42NS4wNi0uNDQuMTEtLjg4LjE3LTEuMzIuMTctMS4zMy4zNS0yLjcuNTQtNC4wNS4xMi0uODUuMjYtMS44NC40Ni0yLjc5LjA3LS4zNC4zMS0uNjMuNzYtLjk0LjAzLS4wMi4wNy0uMDQuMTItLjA0LjIzLDAsLjUxLjI2LjUzLjQ0LjAxLjE0LjAyLjMsMCwuNDEiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNNjIuMTgsNDIuMDZjLS4yNCwxLjIxLS4zOSwyLjUyLS40OCw0LjE0LS4wNS44Ni0uMzUsMS43MS0uOSwyLjUtLjM4LjU2LS44LDEuMTEtMS4yMSwxLjY1LjA2LS40NC4xMS0uODguMTctMS4zMi4xNy0xLjMzLjM1LTIuNy41NC00LjA1LjEyLS44NS4yNi0xLjg0LjQ2LTIuNzkuMDctLjM0LjMxLS42My43Ni0uOTQuMDMtLjAyLjA3LS4wNC4xMi0uMDQuMjMsMCwuNTEuMjYuNTMuNDQuMDEuMTQuMDIuMywwLC40MSIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yNS42Niw1Mi40NmMtLjA2LS4wOC0uNDYtLjYyLS42LS44LTEuMDYtMS40MS0xLjU5LTIuODMtMS42NC00LjM2LS4wMi0uNjktLjEyLTEuMzgtLjIxLTIuMDUtLjA0LS4yNi0uMDctLjUyLS4xMS0uNzgtLjAyLS4xOS0uMDYtLjM2LS4xLS41My0uMDEtLjA1LS4wMi0uMS0uMDMtLjE0LjA0LS4zNC4yLS40Ny4zMy0uNTUuMDktLjA1LjE3LS4wNy4yNC0uMDcuMTQsMCwuMjkuMS40Ni4zMS40NC41My41NiwxLjIxLjY5LDEuOTNsLjAyLjExYy4xLjU4LjE4LDEuMTkuMjUsMS43Ny4wNC4zMy4wOC42NS4xMi45Ny4xMS44NC4yMywxLjY3LjM0LDIuNTEuMDguNTYuMTUsMS4xMi4yMywxLjY4Ii8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTI1LjY2LDUyLjQ2Yy0uMDYtLjA4LS40Ni0uNjItLjYtLjgtMS4wNi0xLjQxLTEuNTktMi44My0xLjY0LTQuMzYtLjAyLS42OS0uMTItMS4zOC0uMjEtMi4wNS0uMDQtLjI2LS4wNy0uNTItLjExLS43OC0uMDItLjE5LS4wNi0uMzYtLjEtLjUzLS4wMS0uMDUtLjAyLS4xLS4wMy0uMTQuMDQtLjM0LjItLjQ3LjMzLS41NS4wOS0uMDUuMTctLjA3LjI0LS4wNy4xNCwwLC4yOS4xLjQ2LjMxLjQ0LjUzLjU2LDEuMjEuNjksMS45M2wuMDIuMTFjLjEuNTguMTgsMS4xOS4yNSwxLjc3LjA0LjMzLjA4LjY1LjEyLjk3LjExLjg0LjIzLDEuNjcuMzQsMi41MS4wOC41Ni4xNSwxLjEyLjIzLDEuNjgiLz4KICA8cGF0aCBjbGFzcz0ic3QxIiBkPSJNMjIuNzMsNTAuMzVjLS40MS0uNTQtLjgzLTEuMDktMS4yMS0xLjY1LS41NS0uOC0uODUtMS42NC0uOS0yLjUtLjA5LTEuNjItLjI0LTIuOTQtLjQ4LTQuMTQtLjAyLS4xMi0uMDEtLjI3LDAtLjQxLjAyLS4xOC4yOS0uNDQuNTMtLjQ0LjA1LDAsLjA5LjAxLjEyLjA0LjQ1LjMxLjY5LjYuNzYuOTQuMi45NS4zNCwxLjk0LjQ2LDIuNzkuMTksMS4zNC4zNiwyLjcxLjU0LDQuMDQuMDYuNDUuMTEuODkuMTcsMS4zNCIvPgogIDxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik0yMi43Myw1MC4zNWMtLjQxLS41NC0uODMtMS4wOS0xLjIxLTEuNjUtLjU1LS44LS44NS0xLjY0LS45LTIuNS0uMDktMS42Mi0uMjQtMi45NC0uNDgtNC4xNC0uMDItLjEyLS4wMS0uMjcsMC0uNDEuMDItLjE4LjI5LS40NC41My0uNDQuMDUsMCwuMDkuMDEuMTIuMDQuNDUuMzEuNjkuNi43Ni45NC4yLjk1LjM0LDEuOTQuNDYsMi43OS4xOSwxLjM0LjM2LDIuNzEuNTQsNC4wNC4wNi40NS4xMS44OS4xNywxLjM0Ii8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTY2LjEzLDQ0LjM2Yy0xLjI0LDUuNTctNC4zNiwxMC42NC04Ljc5LDE0LjI5LTQuNDMsMy42NC0xMCw1LjcxLTE1Ljc0LDUuODUsMC0uMzYsMC0uNzMsMC0xLjFoLS44N3YxLjFjLTUuNzctLjA2LTExLjQxLTIuMDctMTUuODktNS42OC00LjQ0LTMuNTctNy42LTguNTYtOC45Mi0xNC4wNy40NS0uNywxLjEtMS42MSwxLjQzLTIuMDRsLjA2LS4wNy4wNC0uMDYuMDItLjA3Yy4xMi0uMzQuMjktLjY0LjUtLjkxLjEyLS4xNS4yNS0uMjQuMzYtLjI0LjEzLDAsLjI1LjE0LjMxLjIyLjA5LjEzLjE4LjMuMjMuNS40LDEuMzMuNTQsMi43LjY1LDQuMS4xLDEuMjEuNSwyLjM2LDEuMTksMy40MS44MSwxLjI1LDEuNzIsMi40MywyLjY5LDMuNDksMS44MSwxLjk4LDMuNjYsMy40NCw1LjY3LDQuNDYuNzYuMzksMS40Ny41OCwyLjE1LjU4LjM3LDAsLjc1LS4wNiwxLjExLS4xNy41NC0uMTcuOTUtLjUxLDEuMi0xLjAxbC4yMS0uNDEtLjQzLS4xOGMtLjE4LS4wOC0uMzYtLjE1LS41NC0uMjMtLjQxLS4xNy0uNzktLjMzLTEuMTctLjUxLTEuMy0uNi0yLjI1LTEuMzYtMi44OS0yLjM0LS4zOC0uNTgtLjUtMS4wNy0uNDEtMS41OC4wMi0uMTIuMS0uNDIuMy0uNDIuMDUsMCwuMTQuMDIuMjcuMDksMSwuNTksMi4wNy45MywzLjI2LDEuMjkuMjcuMDguNTUuMTYuODMuMjQsMS4wOC4zMSwyLjE5LjYzLDMuMTksMS4xNC4zOC4yLjc0LjQxLDEuMDcuNjMuMDUuMDMuMDkuMDcuMTQuMSwxLjM5Ljk5LDIuNDksMi40OSwzLjA5LDQuMjIuMjQuNjkuMjQsMS40LjI0LDIuMTYsMCwuMiwwLC40LDAsLjYsMCwuNDEuMDEuODcuMDEsMS40MmguODdjMC0uNDMsMC0uOTMuMDEtMS40MiwwLS4yLDAtLjQsMC0uNiwwLS43NiwwLTEuNDcuMjQtMi4xNi42MS0xLjczLDEuNzEtMy4yMywzLjEtNC4yMi4wNC0uMDMuMDktLjA2LjEzLS4wOS4zMy0uMjMuNjktLjQ0LDEuMDctLjY0LDEtLjUxLDIuMTItLjgzLDMuMTktMS4xNC4yOC0uMDguNTUtLjE2LjgzLS4yNCwxLjE5LS4zNiwyLjI2LS43MSwzLjI2LTEuMjkuMTMtLjA4LjIyLS4wOS4yNy0uMDkuMiwwLC4yOC4yOS4zLjQyLjA5LjUxLS4wMywxLS40MSwxLjU4LS42NC45OC0xLjU4LDEuNzQtMi44OSwyLjM0LS4zOC4xNy0uNzUuMzMtMS4xNS41LS4xOC4wOC0uMzcuMTYtLjU1LjI0bC0uNDMuMTguMjEuNDFjLjI1LjQ5LjY3Ljg1LDEuMiwxLjAxLjM2LjExLjczLjE3LDEuMTEuMTcuNjksMCwxLjM5LS4xOSwyLjE1LS41OCwyLjAxLTEuMDMsMy44Ni0yLjQ5LDUuNjctNC40Ni45OC0xLjA3LDEuODUtMi4yMSwyLjY5LTMuNDkuNjktMS4wNSwxLjA5LTIuMiwxLjE5LTMuNDEuMTItMS40MS4yNS0yLjc4LjY1LTQuMS4wNi0uMi4xNC0uMzcuMjMtLjUuMDYtLjA4LjE4LS4yMi4zMS0uMjIuMTIsMCwuMjUuMDkuMzYuMjQuMjMuMjkuMzkuNTkuNTEuOTNsLjAyLjA3LjA0LjA2Yy40Ny41OS44NywxLjE2LDEuMiwxLjY5Ii8+CiAgPHBhdGggY2xhc3M9InN0MSIgZD0iTTY2LjEzLDQ0LjM2Yy0xLjI0LDUuNTctNC4zNiwxMC42NC04Ljc5LDE0LjI5LTQuNDMsMy42NC0xMCw1LjcxLTE1Ljc0LDUuODUsMC0uMzYsMC0uNzMsMC0xLjFoLS44N3YxLjFjLTUuNzctLjA2LTExLjQxLTIuMDctMTUuODktNS42OC00LjQ0LTMuNTctNy42LTguNTYtOC45Mi0xNC4wNy40NS0uNywxLjEtMS42MSwxLjQzLTIuMDRsLjA2LS4wNy4wNC0uMDYuMDItLjA3Yy4xMi0uMzQuMjktLjY0LjUtLjkxLjEyLS4xNS4yNS0uMjQuMzYtLjI0LjEzLDAsLjI1LjE0LjMxLjIyLjA5LjEzLjE4LjMuMjMuNS40LDEuMzMuNTQsMi43LjY1LDQuMS4xLDEuMjEuNSwyLjM2LDEuMTksMy40MS44MSwxLjI1LDEuNzIsMi40MywyLjY5LDMuNDksMS44MSwxLjk4LDMuNjYsMy40NCw1LjY3LDQuNDYuNzYuMzksMS40Ny41OCwyLjE1LjU4LjM3LDAsLjc1LS4wNiwxLjExLS4xNy41NC0uMTcuOTUtLjUxLDEuMi0xLjAxbC4yMS0uNDEtLjQzLS4xOGMtLjE4LS4wOC0uMzYtLjE1LS41NC0uMjMtLjQxLS4xNy0uNzktLjMzLTEuMTctLjUxLTEuMy0uNi0yLjI1LTEuMzYtMi44OS0yLjM0LS4zOC0uNTgtLjUtMS4wNy0uNDEtMS41OC4wMi0uMTIuMS0uNDIuMy0uNDIuMDUsMCwuMTQuMDIuMjcuMDksMSwuNTksMi4wNy45MywzLjI2LDEuMjkuMjcuMDguNTUuMTYuODMuMjQsMS4wOC4zMSwyLjE5LjYzLDMuMTksMS4xNC4zOC4yLjc0LjQxLDEuMDcuNjMuMDUuMDMuMDkuMDcuMTQuMSwxLjM5Ljk5LDIuNDksMi40OSwzLjA5LDQuMjIuMjQuNjkuMjQsMS40LjI0LDIuMTYsMCwuMiwwLC40LDAsLjYsMCwuNDEuMDEuODcuMDEsMS40MmguODdjMC0uNDMsMC0uOTMuMDEtMS40MiwwLS4yLDAtLjQsMC0uNiwwLS43NiwwLTEuNDcuMjQtMi4xNi42MS0xLjczLDEuNzEtMy4yMywzLjEtNC4yMi4wNC0uMDMuMDktLjA2LjEzLS4wOS4zMy0uMjMuNjktLjQ0LDEuMDctLjY0LDEtLjUxLDIuMTItLjgzLDMuMTktMS4xNC4yOC0uMDguNTUtLjE2LjgzLS4yNCwxLjE5LS4zNiwyLjI2LS43MSwzLjI2LTEuMjkuMTMtLjA4LjIyLS4wOS4yNy0uMDkuMiwwLC4yOC4yOS4zLjQyLjA5LjUxLS4wMywxLS40MSwxLjU4LS42NC45OC0xLjU4LDEuNzQtMi44OSwyLjM0LS4zOC4xNy0uNzUuMzMtMS4xNS41LS4xOC4wOC0uMzcuMTYtLjU1LjI0bC0uNDMuMTguMjEuNDFjLjI1LjQ5LjY3Ljg1LDEuMiwxLjAxLjM2LjExLjczLjE3LDEuMTEuMTcuNjksMCwxLjM5LS4xOSwyLjE1LS41OCwyLjAxLTEuMDMsMy44Ni0yLjQ5LDUuNjctNC40Ni45OC0xLjA3LDEuODUtMi4yMSwyLjY5LTMuNDkuNjktMS4wNSwxLjA5LTIuMiwxLjE5LTMuNDEuMTItMS40MS4yNS0yLjc4LjY1LTQuMS4wNi0uMi4xNC0uMzcuMjMtLjUuMDYtLjA4LjE4LS4yMi4zMS0uMjIuMTIsMCwuMjUuMDkuMzYuMjQuMjMuMjkuMzkuNTkuNTEuOTNsLjAyLjA3LjA0LjA2Yy40Ny41OS44NywxLjE2LDEuMiwxLjY5Ii8+Cjwvc3ZnPg==" alt="HDF Logo" class="logo" onerror="this.style.display='none'">
+    <div class="divider-v"></div>
+    <div class="header-text">
+      <div class="header-title">Technical Roadmap</div>
+      <div class="header-sub">Human Development Fund — Engineering</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="period-badge">Dhul Hijjah 1447 &nbsp;·&nbsp; Q2 2026</span>
+    <span class="urgent-global">2 Dhul Hijjah Critical Launches</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SUMMARY CHIPS -->
+  <div class="summary-row">
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--gold)"></div>
+      <div class="summary-chip-name">CowMunity</div>
+      <div class="summary-chip-type">Web App · Dhul Hijjah</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--teal)"></div>
+      <div class="summary-chip-name">Qurbani Lookup</div>
+      <div class="summary-chip-type">Micropage · Dhul Hijjah</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--blue)"></div>
+      <div class="summary-chip-name">OCP</div>
+      <div class="summary-chip-type">Platform · Q2→Q3</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--green)"></div>
+      <div class="summary-chip-name">HDF App</div>
+      <div class="summary-chip-type">Mobile · Q2→Q3</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--purple)"></div>
+      <div class="summary-chip-name">Ihsan Mode v2</div>
+      <div class="summary-chip-type">Feature · Q2→Q3</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--orange)"></div>
+      <div class="summary-chip-name">HDFlix</div>
+      <div class="summary-chip-type">Platform · Q2→Q3</div>
+    </div>
+    <div class="summary-chip">
+      <div class="summary-chip-dot" style="background:var(--crimson)"></div>
+      <div class="summary-chip-name">AI Visibility</div>
+      <div class="summary-chip-type">Pre-DH · Continuous · Lucky</div>
+    </div>
+  </div>
+
+  <!-- SECTION: DHUL HIJJAH CRITICAL -->
+  <div class="section-divider">
+    <span class="section-label">Dhul Hijjah 1447 — Time-Critical</span>
+    <div class="section-line"></div>
+    <span class="section-label">Must ship before &amp; after Eid Al-Adha</span>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 16px;">
+
+    <!-- CowMunity -->
+    <div class="card">
+      <div class="card-stripe c-gold"></div>
+      <div class="card-inner">
+        <span class="card-tag t-gold">Qurbani · Dhul Hijjah</span>
+        <span class="urgent-chip">Pre-Eid Launch</span>
+        <div class="card-title">CowMunity</div>
+        <div class="card-tagline">Crowd-sharing Qurbani platform — donors fill animal slots together, new animal auto-loads when full</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--gold)"></span> Owner: Maero</span>
+          <span class="meta-chip">Standalone web app</span>
+          <span class="meta-chip">Dhul Hijjah 1447</span>
+        </div>
+
+        <div class="flow-row">
+          <div class="flow-step">
+            <div class="flow-step-title">Animal listed</div>
+            <div class="flow-step-sub">e.g. Cow — 7 slots</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">Donors join</div>
+            <div class="flow-step-sub">Fill slots 1 of 7</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">7/7 filled</div>
+            <div class="flow-step-sub">Animal complete</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">New animal</div>
+            <div class="flow-step-sub">Auto-loaded</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="sub-label">Objectives</div>
+            <div class="pill-list">
+              <span class="pill">Slot-based sharing</span>
+              <span class="pill">Cow / sheep / goat</span>
+              <span class="pill">Real-time progress</span>
+              <span class="pill">Auto-load next animal</span>
+              <span class="pill">Payment per slot</span>
+              <span class="pill">Donor confirmation</span>
+            </div>
+          </div>
+          <div>
+            <div class="sub-label">Deliverables</div>
+            <div class="pill-list">
+              <span class="pill">Standalone web app</span>
+              <span class="pill">Slot booking engine</span>
+              <span class="pill">Live progress UI</span>
+              <span class="pill">Payment integration</span>
+              <span class="pill">Admin panel</span>
+            </div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>Critical — Dhul Hijjah deadline</span></div>
+          <div class="bar-track"><div class="bar-fill c-gold" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qurbani Lookup -->
+    <div class="card">
+      <div class="card-stripe c-teal"></div>
+      <div class="card-inner">
+        <span class="card-tag t-teal">Qurbani · Dhul Hijjah</span>
+        <span class="urgent-chip">Post-Eid Launch</span>
+        <div class="card-title">Qurbani Lookup</div>
+        <div class="card-tagline">myQurbani.hdfund.org — donors discover exactly where their Qurbani was distributed and who it fed</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--teal)"></span> Owner: Maero</span>
+          <span class="meta-chip">Page on HDF site</span>
+          <span class="meta-chip">myQurbani.hdfund.org</span>
+        </div>
+
+        <div class="flow-row">
+          <div class="flow-step">
+            <div class="flow-step-title">Enter email</div>
+            <div class="flow-step-sub">myQurbani page</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">Lookup runs</div>
+            <div class="flow-step-sub">Match to order</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">Result shown</div>
+            <div class="flow-step-sub">Country + impact</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-title">Share card</div>
+            <div class="flow-step-sub">Social sharing</div>
+          </div>
+        </div>
+
+        <div class="example-callout" style="background: var(--teal-light); color: var(--teal); border-left: 3px solid var(--teal); margin-bottom: 14px;">
+          "Your Qurbani was distributed in Chad. It fed 12 families — approximately 84 people."
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="sub-label">Objectives</div>
+            <div class="pill-list">
+              <span class="pill">Email lookup</span>
+              <span class="pill">Order matching</span>
+              <span class="pill">Distribution country</span>
+              <span class="pill">Families fed</span>
+              <span class="pill">People fed count</span>
+              <span class="pill">Shareable result</span>
+            </div>
+          </div>
+          <div>
+            <div class="sub-label">Deliverables</div>
+            <div class="pill-list">
+              <span class="pill">Lookup page</span>
+              <span class="pill">Backend API</span>
+              <span class="pill">Impact data pipeline</span>
+              <span class="pill">Share card (social)</span>
+            </div>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>Critical — Dhul Hijjah deadline</span></div>
+          <div class="bar-track"><div class="bar-fill c-teal" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: Q2/Q3 PROJECTS -->
+  <div class="section-divider">
+    <span class="section-label">Q2 → Q3 2026 — Core Projects</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="grid-4" style="margin-bottom: 16px;">
+
+    <!-- OCP -->
+    <div class="card">
+      <div class="card-stripe c-blue"></div>
+      <div class="card-inner">
+        <span class="card-tag t-blue">Platform</span>
+        <div class="card-title">OCP</div>
+        <div class="card-tagline">Orphan Sponsorship Platform — replace GiveCloud with a purpose-built sponsorship engine</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--blue)"></span> Devs: Zino &amp; Robert</span>
+          <span class="meta-chip">Q2 → Q3</span>
+        </div>
+        <div>
+          <div class="sub-label">Objectives</div>
+          <div class="pill-list" style="margin-bottom:12px">
+            <span class="pill">Replace GiveCloud</span>
+            <span class="pill">Orphan profiles</span>
+            <span class="pill">Recurring billing</span>
+            <span class="pill">Sponsor dashboard</span>
+            <span class="pill">Sponsor management</span>
+          </div>
+          <div class="sub-label">Deliverables</div>
+          <div class="pill-list">
+            <span class="pill">MVP platform</span>
+            <span class="pill">Payment integration</span>
+            <span class="pill">Admin portal</span>
+            <span class="pill">Data migration</span>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>Critical</span></div>
+          <div class="bar-track"><div class="bar-fill c-blue" style="width:95%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HDF App -->
+    <div class="card">
+      <div class="card-stripe c-green"></div>
+      <div class="card-inner">
+        <span class="card-tag t-green">Mobile</span>
+        <div class="card-title">HDF App</div>
+        <div class="card-tagline">A lifestyle charity app built around HDF's mission and everyday Muslim giving</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--green)"></span> PM: Ibrahim Salami &nbsp;·&nbsp; TPM: Kolapo &nbsp;·&nbsp; Dev: Jamiu</span>
+          <span class="meta-chip">Q2 → Q3</span>
+        </div>
+        <div>
+          <div class="sub-label">Objectives</div>
+          <div class="pill-list" style="margin-bottom:12px">
+            <span class="pill">Lifestyle integration</span>
+            <span class="pill">Giving on the go</span>
+            <span class="pill">Push notifications</span>
+            <span class="pill">Islamic calendar</span>
+            <span class="pill">Impact feed</span>
+          </div>
+          <div class="sub-label">Deliverables</div>
+          <div class="pill-list">
+            <span class="pill">iOS + Android</span>
+            <span class="pill">Donation flow</span>
+            <span class="pill">User profiles</span>
+            <span class="pill">Notifications</span>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>High</span></div>
+          <div class="bar-track"><div class="bar-fill c-green" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ihsan Mode v2 -->
+    <div class="card">
+      <div class="card-stripe c-purple"></div>
+      <div class="card-inner">
+        <span class="card-tag t-purple">Feature</span>
+        <div class="card-title">Ihsan Mode v2</div>
+        <div class="card-tagline">Next iteration — scope to be confirmed by Ibrahim / Kolapo / Jamiu</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--purple)"></span> PM: Ibrahim Salami &nbsp;·&nbsp; TPM: Kolapo &nbsp;·&nbsp; Dev: Jamiu</span>
+          <span class="meta-chip">Q2 → Q3</span>
+        </div>
+        <div>
+          <div class="sub-label">Objectives</div>
+          <div class="pill-list" style="margin-bottom:12px">
+            <span class="pill">v2 scoping</span>
+            <span class="pill">Team alignment</span>
+            <span class="pill">Feature build</span>
+            <span class="pill">QA &amp; release</span>
+          </div>
+          <div class="sub-label">Deliverables</div>
+          <div class="pill-list">
+            <span class="pill">Scope doc</span>
+            <span class="pill">v2 release</span>
+            <span class="pill">Release notes</span>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>Medium — pending scope</span></div>
+          <div class="bar-track"><div class="bar-fill c-purple" style="width:55%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HDFlix -->
+    <div class="card">
+      <div class="card-stripe c-orange"></div>
+      <div class="card-inner">
+        <span class="card-tag t-orange">Platform</span>
+        <div class="card-title">HDFlix</div>
+        <div class="card-tagline">Video platform for HDF docuseries, field stories and donor-facing content</div>
+        <div class="meta-row">
+          <span class="meta-chip"><span class="dot" style="background:var(--orange)"></span> Devs: Oma &amp; Ibrahim Salami</span>
+          <span class="meta-chip">Q2 → Q3</span>
+        </div>
+        <div>
+          <div class="sub-label">Objectives</div>
+          <div class="pill-list" style="margin-bottom:12px">
+            <span class="pill">Video hosting</span>
+            <span class="pill">Docuseries library</span>
+            <span class="pill">Streaming infra</span>
+            <span class="pill">Donor engagement</span>
+          </div>
+          <div class="sub-label">Deliverables</div>
+          <div class="pill-list">
+            <span class="pill">Streaming platform</span>
+            <span class="pill">Content CMS</span>
+            <span class="pill">Player embed</span>
+            <span class="pill">Analytics</span>
+          </div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-header"><span>Priority</span><span>High</span></div>
+          <div class="bar-track"><div class="bar-fill c-orange" style="width:75%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTION: AI / LUCYK -->
+  <div class="section-divider">
+    <span class="section-label">AI Strategy — Lucky</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="card" style="margin-bottom: 32px;">
+    <div class="card-stripe c-crimson"></div>
+    <div class="card-inner">
+      <span class="card-tag t-crimson">AI · GEO / AEO</span>
+      <span class="urgent-chip">Ship before Dhul Hijjah</span>
+      <div class="card-title">AI Visibility Engine</div>
+      <div class="card-tagline">Must ship before Dhul Hijjah 1447, then continuously iterated and updated. Get HDF ranking in AI search results — ChatGPT, Perplexity, Gemini &amp; Google AI Overviews. Lucky owns this end-to-end as a developer building systems and pipelines, not content.</div>
+      <div class="meta-row">
+        <span class="meta-chip"><span class="dot" style="background:var(--crimson)"></span> Owner: Lucky</span>
+        <span class="meta-chip">Full-stack + LLM engineering</span>
+        <span class="meta-chip">Pre-Dhul Hijjah → Continuous</span>
+        <span class="meta-chip">GEO / AEO</span>
+        <span class="meta-chip">Figma MCP</span>
+        <span class="meta-chip">HDF AI Bot</span>
+      </div>
+      <div class="lucyk-tasks">
+        <div class="ltask">
+          <div class="ltask-num" style="color:var(--crimson)">Task 01</div>
+          <div class="ltask-title">AI Citation Tracker</div>
+          <div class="ltask-desc">Scheduled bot that fires target donor queries at ChatGPT, Perplexity, Gemini &amp; Google AI Overviews. Logs full responses, detects HDF mentions, surfaces a weekly trends dashboard. Establishes baseline and measures progress over time.</div>
+        </div>
+        <div class="ltask">
+          <div class="ltask-num" style="color:var(--crimson)">Task 02</div>
+          <div class="ltask-title">Schema &amp; Structured Data Injection</div>
+          <div class="ltask-desc">Programmatically generate and inject JSON-LD schema across HDF's entire site — Organization, Charity, FAQPage, Donation schemas. Signals authoritatively to AI crawlers who HDF is, what it does, and where it operates. Pure engineering work.</div>
+        </div>
+        <div class="ltask">
+          <div class="ltask-num" style="color:var(--crimson)">Task 03</div>
+          <div class="ltask-title">Programmatic SEO Engine</div>
+          <div class="ltask-desc">Build a system generating hundreds of targeted static pages at scale — /give-zakat-for-orphans, /sadaqah-jariyah-water-well-pakistan. Lucky builds the engine, templates, and deployment pipeline. Optimised for AI engine discovery, not just Google.</div>
+        </div>
+        <div class="ltask">
+          <div class="ltask-num" style="color:var(--crimson)">Task 04</div>
+          <div class="ltask-title">Figma MCP Integration</div>
+          <div class="ltask-desc">Integrate Figma via MCP so design assets, components, and brand guidelines feed directly into HDF's development workflow. Enables design-to-code pipelines and keeps AI-generated content visually on-brand with HDF's design system.</div>
+        </div>
+        <div class="ltask">
+          <div class="ltask-num" style="color:var(--crimson)">Task 05</div>
+          <div class="ltask-title">HDF AI Bot</div>
+          <div class="ltask-desc">Maintain, extend, and iterate on the existing HDF AI Bot — expanding its knowledge base, improving response quality, and connecting it to new data sources. The bot serves as a live donor-facing touchpoint and a signal engine for GEO content gaps.</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-header"><span>Priority</span><span>Strategic</span></div>
+        <div class="bar-track"><div class="bar-fill c-crimson" style="width:88%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-divider">
+    <span class="section-label">Sprint Timeline</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="timeline-card">
+    <div class="timeline-header">
+      <div class="timeline-title">Dhul Hijjah 1447 → Q3 2026 — 12-week view</div>
+      <div style="font-size:11px;color:var(--text-muted)">Darker = active build &nbsp;·&nbsp; Lighter = QA / launch</div>
+    </div>
+    <div class="timeline-body">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">* AI Visibility Engine ships <strong>before</strong> Dhul Hijjah 1447 and continues with ongoing iteration throughout Q3.</p>
+      <div class="tl-grid">
+        <div class="tl-header-cell">Project</div>
+        <div class="tl-header-cell">Wk 1–2</div>
+        <div class="tl-header-cell">Wk 3–4</div>
+        <div class="tl-header-cell">Wk 5–6</div>
+        <div class="tl-header-cell">Wk 7–8</div>
+        <div class="tl-header-cell">Wk 9–10</div>
+        <div class="tl-header-cell">Wk 11–12</div>
+
+        <!-- CowMunity -->
+        <div class="tl-label"><span class="dot" style="background:var(--gold)"></span>CowMunity</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--gold);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--gold);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--gold);opacity:0.5"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+
+        <!-- Qurbani Lookup -->
+        <div class="tl-label"><span class="dot" style="background:var(--teal)"></span>Qurbani Lookup</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--teal);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--teal);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--teal);opacity:0.5"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+        <div class="tl-cell"><div class="tl-empty"></div></div>
+
+        <!-- OCP -->
+        <div class="tl-label"><span class="dot" style="background:var(--blue)"></span>OCP</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--blue);opacity:0.4"></div></div>
+
+        <!-- HDF App -->
+        <div class="tl-label"><span class="dot" style="background:var(--green)"></span>HDF App</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--green);opacity:0.4"></div></div>
+
+        <!-- Ihsan Mode v2 -->
+        <div class="tl-label"><span class="dot" style="background:var(--purple)"></span>Ihsan Mode v2</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:0.5"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:0.5"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--purple);opacity:0.4"></div></div>
+
+        <!-- HDFlix -->
+        <div class="tl-label"><span class="dot" style="background:var(--orange)"></span>HDFlix</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:0.5"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:0.7"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--orange);opacity:0.4"></div></div>
+
+        <!-- AI Visibility -->
+        <div class="tl-label"><span class="dot" style="background:var(--crimson)"></span>AI Visibility</div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:1"></div></div>
+        <div class="tl-cell"><div class="tl-seg" style="background:var(--crimson);opacity:0.7"></div></div>
+      </div>
+
+      <div class="tl-legend">
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--gold)"></div>CowMunity</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--teal)"></div>Qurbani Lookup</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--blue)"></div>OCP</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--green)"></div>HDF App</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--purple)"></div>Ihsan Mode v2</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--orange)"></div>HDFlix</div>
+        <div class="tl-li"><div class="tl-swatch" style="background:var(--crimson)"></div>AI Visibility (Lucky)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Human Development Fund &nbsp;·&nbsp; Engineering &nbsp;·&nbsp; Dhul Hijjah 1447 · Q2 2026 &nbsp;·&nbsp; Confidential — Internal Use Only
+</div>
+
+</body>
+</html>
